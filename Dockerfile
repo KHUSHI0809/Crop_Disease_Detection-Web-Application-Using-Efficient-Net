@@ -1,18 +1,19 @@
 # Use Python base image
 FROM python:3.10-slim
 
-# Set working dir
+# Set working directory
 WORKDIR /app
 
-# Copy requirements and install
+# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all project files
+# Copy project files
 COPY . .
 
-# Expose Cloud Run default port
+# Expose Cloud Run port
+ENV PORT=8080
 EXPOSE 8080
 
-# Start Flask (ensure app.py contains "app" object)
+# Start Flask
 CMD ["python", "app.py"]
