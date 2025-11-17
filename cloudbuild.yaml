@@ -1,0 +1,30 @@
+
+steps:
+  # Step 0: Clone your GitHub repository
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        git clone https://github.com/lakshit-25/Crop_Disease_Detection-Web-Application-Using-Effecient-Net.git src
+        ls -la src
+
+  # Step 1: Build the Docker image from cloned source
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'asia-south1-docker.pkg.dev/advance-rush/cloud-run-source-deploy/my-python-app'
+      - 'src'
+
+  # Step 2: Push the image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'asia-south1-docker.pkg.dev/advance-rush/cloud-run-source-deploy/my-python-app'
+
+images:
+  - 'asia-south1-docker.pkg.dev/advance-rush/cloud-run-source-deploy/my-python-app'
+
+
+
